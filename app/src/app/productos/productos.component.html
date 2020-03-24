@@ -1,0 +1,62 @@
+<input type="text" [(ngModel)]= "busqueda" (keydown.enter)="buscar()">
+<a 
+    name="" 
+    id="" 
+    class="btn btn-danger ml-2" 
+    href="#" 
+    role="button"
+    (click)="buscar()"
+    >Buscar Producto</a>
+
+<p *ngIf= "busqueda.length > 0"  class="ml-3 mb-0 pb-0">Busqueda: {{busqueda}}</p>
+
+<br>
+<input  class="ml-3" type="checkbox" [(ngModel)]= "b1"> Solo en existencia
+<br>
+<input  class="ml-3" type="checkbox" [(ngModel)]= "b2"> Ordenar por precio (menor a mayor)
+<br>
+<input  class="ml-3" type="checkbox" [(ngModel)]= "b3"> Resaltar existencia mayor a 3
+
+<div *ngIf= "resBus.length == 0"class="alert alert-danger ml-3 mr-3" role="alert">
+    <strong>Ningún producto concuerda con la búsqueda</strong>
+</div>
+
+<div *ngIf= "!b2">
+    <div class="ml-5 mr-5" *ngFor= "let p of resBus" 
+    [ngStyle]= "{'background-color':(b3 && p.existencia >3)?'green':'white'}">
+        <div *ngIf= "!b1 || (b1 && p.existencia > 0)">
+            <hr>
+            <div style="float: left;">
+                <img src="https://i.picsum.photos/id/{{p.uid}}/100/100.jpg" float="left">
+            </div>
+            <div style="margin-left: 110px;">
+                <h4>{{p.nombre}}</h4>
+                <p>Precio (MXN): ${{p.precio}}</p>
+                <p>Marca: {{p.marca}}</p>
+                <p>Descripcion: {{p.descripcion}}</p>
+                <p>Existencia: {{p.existencia}}</p>
+            </div>
+            <hr>
+        </div>
+    </div>
+</div>
+
+<div *ngIf= "b2">
+    <div class="ml-5 mr-5" *ngFor= "let p of ordBus" 
+    [ngStyle]= "{'background-color':(b3 && p.existencia >3)?'green':'white'}">
+        <div *ngIf= "!b1 || (b1 && p.existencia > 0)">
+            <hr>
+            <div style="float: left;">
+                <img src="https://i.picsum.photos/id/{{p.uid}}/100/100.jpg" float="left">
+            </div>
+            <div style="margin-left: 110px;">
+                <h4>{{p.nombre}}</h4>
+                <p>Precio (MXN): ${{p.precio}}</p>
+                <p>Marca: {{p.marca}}</p>
+                <p>Descripcion: {{p.descripcion}}</p>
+                <p>Existencia: {{p.existencia}}</p>
+            </div>
+            <hr>
+        </div>
+    </div>
+</div>
